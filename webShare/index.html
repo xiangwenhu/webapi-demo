@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Web Share</title>
+    <style>
+        span {
+            width: 50px;
+            display: inline-block;
+        }
+
+        section {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>
+        采用 script type="module" 模式加载，为了更好的体验，请使用Chrome Android测试
+    </section>
+    <section>
+        <form id="form">
+            <p>
+                <span>title: </span><input name="title" value="分享的标题">
+            </p>
+            <p>
+                <span>text: </span> <input name="text" value="分享的正文">
+            </p>
+            <p>
+                <span>url: </span> <input name="url" value="https://developer.mozilla.org">
+            </p>
+            <input type="button" value="分享" id="btnShare">
+        </form>
+
+    </section>
+    <script type="module">
+        import { share } from "./share.mjs"
+        import { formDataToJson } from "./utils.mjs"
+
+        const btnShare = document.getElementById("btnShare")
+        btnShare.addEventListener("click", function () {
+
+            const shareOption = formDataToJson(new FormData(document.forms[0]))
+            console.log(shareOption)
+            if (!(shareOption instanceof FormData)) {
+                share(shareOption)
+            }
+
+        })
+
+    </script>
+
+</body>
+
+</html>
